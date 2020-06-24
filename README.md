@@ -1,13 +1,13 @@
 # IP_POST_TEST
 
-
-constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      dataSource: null
-    }
-  }
+    
+    constructor(props) {
+        super(props);
+        this.state = {
+          isLoading: true,
+          dataSource: null
+        }
+      }
 
       // GETの仕方
       componentDidMount() {
@@ -38,27 +38,26 @@ constructor(props) {
     //   })
     // })
  }
- 
- render() {
-  if (this.state.isLoading) {
-      return (
-        <View style={styles.container}>
-          <ActivityIndicator />
-        </View>
-      )
-    } else {
 
-      let movies = this.state.dataSource.map((val, key) => {
-        return <TouchableOpacity onPress={() => alert(val.company['bs'])} key={key} style={styles.item}>
-          <Text>{val.company['bs']}</Text>
-          <Text>{val.title}</Text>
-        </TouchableOpacity>
-      })
-      
-      return(
-        <View style={styles.container}>
-          {movies}
-        </View>
-      )
-      
- }
+     render() {
+      if (this.state.isLoading) {
+          return (
+            <View style={styles.container}>
+              <ActivityIndicator />
+            </View>
+          )
+        } else {
+
+          let movies = this.state.dataSource.map((val, key) => {
+            return <TouchableOpacity onPress={() => alert(val.company['bs'])} key={key} style={styles.item}>
+              <Text>{val.company['bs']}</Text>
+              <Text>{val.title}</Text>
+            </TouchableOpacity>
+          })
+
+          return(
+            <View style={styles.container}>
+              {movies}
+            </View>
+          )     
+         }
