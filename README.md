@@ -9,20 +9,20 @@ constructor(props) {
     }
   }
 
-  // GETの仕方
-  componentDidMount() {
-    return fetch('http://jsonplaceholder.typicode.com/users')
-      .then((res) => res.json())
-      .then((responseJson) => {
-        this.setState({
-          isLoading: false,
-          dataSource: responseJson,
-        })
-        console.log(this.state.dataSource.company['bs'])
-      })
-      .catch((error) => {
-        console.log(error)
-      });
+      // GETの仕方
+      componentDidMount() {
+        return fetch('http://jsonplaceholder.typicode.com/users')
+          .then((res) => res.json())
+          .then((responseJson) => {
+            this.setState({
+              isLoading: false,
+              dataSource: responseJson,
+            })
+            console.log(this.state.dataSource.company['bs'])
+          })
+          .catch((error) => {
+            console.log(error)
+          });
       
       // POSTの仕方
 
