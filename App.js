@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text,Dimensions, View, ActivityIndicator, ScrollView, FlatList, TouchableOpacity, SafeAreaView, Image, ImageBackground } from 'react-native';
+import { NativeRouter, Switch, Route } from 'react-router-native';
+import getData from './data/influencer.json';
+
+import Influencer from './Influencer';
+import Company from './company';
+
+var { width, height, scale } = Dimensions.get('window');
 
 export default class App extends Component {
 
@@ -12,13 +19,14 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    return fetch('https://facebook.github.io/react-native/movies.json')
+    return fetch('http://jsonplaceholder.typicode.com/users')
       .then((res) => res.json())
       .then((responseJson) => {
         this.setState({
           isLoading: false,
-          dataSource: responseJson.movies,
+          dataSource: responseJson,
         })
+        console.log(this.state.dataSource.company['bs'])
       })
       .catch((error) => {
         console.log(error)
@@ -50,15 +58,30 @@ export default class App extends Component {
     } else {
 
       let movies = this.state.dataSource.map((val, key) => {
-        return <View key={key} style={styles.item}>
-          <Text>{val.title}</Text>
-        </View>
+        return <TouchableOpacity onPress={() => alert(val.company['bs'])} key={key} style={styles.item}>
+          {/* <Text>{val.company['bs']}</Text>
+          <Text>{val.title}</Text> */}
+        </TouchableOpacity>
       })
 
       return (
-        <View style={styles.container}>
-          {movies}
-        </View>
+        <SafeAreaView>
+          <ScrollView>
+            <ImageBackground
+              style={{width: width, height: height}}
+              source={require('./assets/dejimon.jpg')}>
+              <NativeRouter>
+                <Switch>
+                  <Route exact path="/" component={Company} />
+                  <Route exact path="/influencer" component={Influencer} />
+                </Switch>
+                <View style={styles.container}>
+                  {movies}
+                </View>
+              </NativeRouter>
+            </ImageBackground>
+          </ScrollView>
+        </SafeAreaView>
       );
     }
   }
@@ -66,18 +89,23 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  item: {
+  background: {
     flex: 1,
-    alignSelf: 'stretch',
-    margin: 10,
-    alignItems: 'center',
+    height: 600,
     justifyContent: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee'
-  }
+    alignItems: 'center',
+  },
+  // item: {
+  //   flex: 1,
+  //   alignSelf: 'stretch',
+  //   margin: 10,
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   borderBottomWidth: 1,
+  //   borderBottomColor: '#eee'
+  // }
 });
